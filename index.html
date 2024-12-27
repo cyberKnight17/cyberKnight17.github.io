@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Language Symbols</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: radial-gradient(circle, #2b2b44 0%, #1a1a2e 100%);
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        -webkit-touch-callout: none; /* 禁止长按选择 */
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .card {
+        position: fixed;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        pointer-events: none;
+        will-change: transform;
+        transition: opacity 2s;
+      }
+
+      /* 响应式字体大小 */
+      @media (max-width: 768px) {
+        .card {
+          font-size: 24px; /* 手机上使用较小字体 */
+        }
+      }
+
+      @media (min-width: 769px) {
+        .card {
+          font-size: 36px; /* 桌面端保持原有大小 */
+        }
+      }
+
+      /* 针对不同设备像素比的优化 */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        .card {
+          text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+        }
+      }
+
+      .phrase {
+        display: inline-block;
+        white-space: nowrap;
+      }
+
+      .phrase span {
+        display: inline-block;
+        transition: transform 1s ease-out;
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const symbols = [
+        'あ',
+        'い',
+        'う',
+        'え',
+        'お',
+        '我',
+        '你',
+        '他',
+        '她',
+        '它',
+        '天',
+        '地',
+        '人',
+        '国',
+        '大',
+        '가',
+        '나',
+        '다',
+        '라',
+        '마',
+        '국',
+        '민',
+        '대',
+        '한',
+        '세',
+        '계',
+        '시',
+        '간',
+        '말',
+        '집',
+        '밥',
+        '물',
+        '불',
+        '산',
+        '꽃',
+        '눈',
+        '귀',
+        '발',
+        '손',
+        '달',
+        '해',
+        '별',
+        '구',
+        '름',
+        '비',
+        '새',
+        '개',
+        '곰',
+        '말',
+        '양',
+        '학',
+        '교',
+        '생',
+        '문',
+        '책',
+        '글',
+        '씨',
+        '맛',
+        '색',
+        '빛',
+      ];
+
+      const phrases = [
+        // 日中混合
+        'さくら散る空'.split(''),
+        '春よ来い花開'.split(''),
+        '夢中看花花不见'.split(''),
+        '時光飛逝如夢'.split(''),
+        '心跳が止まる瞬'.split(''),
+        'あの夢をもう一度'.split(''),
+        '夜に駆ける心'.split(''),
+        '群青の空へ行く'.split(''),
+
+        'ㄙㄚㄎㄨㄌㄚ散ㄔㄧˇㄌㄨˊ空'.split(''),
+        'ㄔㄨㄣˊよㄌㄞˊㄎㄨㄟˋ花ㄎㄞ'.split(''),
+        'ㄇㄥˋㄓㄨㄥㄎㄢˋ花花ㄅㄨˋㄐㄧㄢˋ'.split(''),
+        'ㄕˊㄍㄨㄤㄈㄟㄕˋㄖㄨˊㄇㄥˋ'.split(''),
+        'ㄒㄧㄣㄊㄧㄠˋがㄓˇㄇㄚˇㄕㄨㄣˋ'.split(''),
+        'あㄋㄛˋㄩˋㄨㄛˇㄇㄡㄏㄧˊㄉㄨˊ'.split(''),
+        'ㄧㄝˋㄋㄧㄎㄜˋㄌㄨˊㄒㄧㄣ'.split(''),
+        'ㄑㄩㄣㄑㄧㄥㄋㄛㄙㄨㄛㄏㄜㄧˊㄑㄩˇ'.split(''),
+
+        // 日韓混合
+        'さくら달빛아래'.split(''),
+        '눈물が雨のよう'.split(''),
+        '꿈みたいな空'.split(''),
+        '私の사랑해요'.split(''),
+        'こんにちは여러분'.split(''),
+        'ありがとう감사'.split(''),
+
+        // 中韓混合
+        '等你달빛아래'.split(''),
+        '봄날空蝶舞う'.split(''),
+        '당신을爱してる'.split(''),
+        '안녕朋友们呢'.split(''),
+        '我좋아해요你'.split(''),
+        '梦想꿈希望光'.split(''),
+
+        // 三语混合
+        '桜が咲く봄날に'.split(''),
+        '心の空사랑해'.split(''),
+        '夢みたい좋아요'.split(''),
+        '雨が降る날에も'.split(''),
+
+        // 注音混合
+        'ㄊㄧㄢ空很蓝呢'.split(''),
+        '雲ㄉㄨㄛ美しい'.split(''),
+        'ㄋㄧ好ㄇ朋友'.split(''),
+
+        // 抒情短句
+        '月光溶けて'.split(''),
+        '星空きれい'.split(''),
+        '春風そよぐ'.split(''),
+        '花びら��う'.split(''),
+        '雨滴落ちる'.split(''),
+        '雪が降る夜'.split(''),
+        '微風輕拂面'.split(''),
+        '夜空繁星点'.split(''),
+        '朝露晶瑩潤'.split(''),
+        '秋葉舞い散る'.split(''),
+        '봄바람불어와'.split(''),
+        '달빛아래서'.split(''),
+        '꽃잎이날리다'.split(''),
+        '새벽하늘별'.split(''),
+      ];
+
+      let windForce = 0;
+      let targetWindForce = 0;
+      let pileHeight = {};
+
+      function updateWind() {
+        targetWindForce = (Math.random() - 0.5) * 300;
+
+        const duration = 3000;
+        const start = windForce;
+        const change = targetWindForce - start;
+        const startTime = Date.now();
+
+        function animate() {
+          const elapsed = Date.now() - startTime;
+          if (elapsed < duration) {
+            windForce = start + (change * elapsed) / duration;
+            requestAnimationFrame(animate);
+          } else {
+            windForce = targetWindForce;
+          }
+        }
+        animate();
+      }
+
+      function createCard(content, isPhrase = false) {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        if (isPhrase) {
+          card.classList.add('phrase');
+          const container = document.createElement('div');
+          container.style.display = 'flex';
+          container.style.gap = isMobile ? '1px' : '2px'; // 手机上使用更小的间距
+
+          content.forEach((char) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            const smallOffset = (Math.random() - 0.5) * (isMobile ? 5 : 10);
+            span.style.transform = `translate(${smallOffset}px, ${smallOffset}px)`;
+            container.appendChild(span);
+          });
+          card.appendChild(container);
+        } else {
+          card.textContent = content;
+        }
+
+        // 确保符号在可视区域内
+        const maxX = window.innerWidth - (isMobile ? 30 : 50);
+        const startX = Math.random() * maxX;
+        card.style.left = startX + 'px';
+        card.style.top = '-50px';
+        document.body.appendChild(card);
+
+        return { card, startX };
+      }
+
+      function animateCard(cardObj) {
+        const { card, startX } = cardObj;
+        const duration = 3 + Math.random() * 2;
+        const isPhrase = card.classList.contains('phrase');
+        const gridSize = 50;
+        const gridX = Math.floor(startX / gridSize) * gridSize;
+
+        pileHeight[gridX] = pileHeight[gridX] || window.innerHeight;
+        const targetY = pileHeight[gridX] - card.offsetHeight;
+        pileHeight[gridX] -= card.offsetHeight;
+
+        card.style.transition = `top ${duration}s linear, opacity 4s ease-in`;
+        card.offsetHeight;
+
+        const windEffect =
+          windForce * (1 + Math.random() * (isMobile ? 0.3 : 0.5));
+
+        if (isPhrase) {
+          const spans = card.querySelectorAll('span');
+          spans.forEach((span, i) => {
+            span.style.transition = `transform ${duration}s ease-out, opacity 4s ease-in`;
+            const randomOffset = (Math.random() - 0.5) * 200;
+            const verticalOffset = (Math.random() - 0.5) * 100;
+            const rotateOffset = (Math.random() - 0.5) * 360;
+            setTimeout(() => {
+              span.style.transform = `translate(${
+                windEffect + randomOffset
+              }px, ${verticalOffset}px) rotate(${rotateOffset}deg)`;
+            }, i * 100);
+          });
+        } else {
+          card.style.transform = `translateX(${windEffect}px) rotate(${
+            windEffect / 5
+          }deg)`;
+        }
+
+        card.style.top = targetY + 'px';
+
+        const meltDelay =
+          duration * 1000 + Math.random() * (isMobile ? 4000 : 8000);
+        const meltDuration = (isMobile ? 4000 : 8000) + Math.random() * 4000;
+
+        setTimeout(() => {
+          if (isPhrase) {
+            const spans = card.querySelectorAll('span');
+            spans.forEach((span, i) => {
+              setTimeout(() => {
+                span.style.opacity = '0';
+              }, i * 500);
+            });
+          }
+
+          const steps = 5;
+          for (let i = 0; i < steps; i++) {
+            setTimeout(() => {
+              card.style.opacity = (steps - i - 1) / steps;
+            }, (i * meltDuration) / steps);
+          }
+
+          setTimeout(() => {
+            card.remove();
+            pileHeight[gridX] += card.offsetHeight;
+          }, meltDuration + 1000);
+        }, meltDelay);
+      }
+
+      function rain() {
+        // 限制最大符号数量
+        const currentSymbols = document.querySelectorAll('.card').length;
+        if (currentSymbols >= config.maxSymbols) return;
+
+        if (Math.random() < config.phraseChance) {
+          const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+          const cardObj = createCard(phrase, true);
+          animateCard(cardObj);
+        } else {
+          const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+          const cardObj = createCard(symbol);
+          animateCard(cardObj);
+        }
+      }
+
+      // 添加设备检测和性能优化
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+      // 根据设备调整参数
+      const config = {
+        rainInterval: isMobile ? 200 : 100, // 手机上降低生成频率
+        maxSymbols: isMobile ? 50 : 100, // 限制同时存在的符号数量
+        phraseChance: isMobile ? 0.1 : 0.2, // 手机上降低词组出现概率
+        gridSize: isMobile ? 30 : 50, // 手机上使用更小的网格
+      };
+
+      // 性能优化：使用 RAF 节流
+      let rainTimeout;
+      function scheduleRain() {
+        if (!rainTimeout) {
+          rainTimeout = requestAnimationFrame(() => {
+            rain();
+            rainTimeout = null;
+          });
+        }
+      }
+
+      // 添加窗口大小变化处理
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        if (resizeTimeout) clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          // 清除所有现有符号并重置堆积高度
+          document.querySelectorAll('.card').forEach((card) => card.remove());
+          pileHeight = {};
+        }, 250);
+      });
+
+      // 启动动画
+      setInterval(scheduleRain, config.rainInterval);
+      setInterval(updateWind, isMobile ? 8000 : 5000); // 手机上降低风力更新频率
+    </script>
+  </body>
+</html>
